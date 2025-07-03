@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aditya Gautham | Home</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌹%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Sticky top nav */
+    .top-nav {
+      position: fixed;
+      top: -100px; /* start hidden above */
+      left: 0;
+      width: 100%;
+      background: var(--dark-red); /* extra dark red */
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      z-index: 10;
+      transition: top 0.6s ease;
+      border-bottom: 1px solid var(--white);
+    }
+    .top-nav a {
+      position: relative; /* ensure link is above indicator */
+      z-index: 2;
+      padding: 0.75rem 2rem;        /* longer sides */
+      border-radius: 50px;         /* full pill shape */
+      color: var(--cream);
+      font-weight: bold;
+      text-transform: capitalize;
+      text-decoration: none;
+      transition: background .3s, color .3s, transform .2s ease, box-shadow .3s ease;
+    }
+    .top-nav a:hover {
+      background: var(--cream);
+      color: var(--red);
+      box-shadow:
+        0 0 8px rgba(255,255,255,0.7),   /* outer glow */
+        0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(-2px) scale(1.05);
+    }
+    /* Push landing and features down below nav */
+    #landing,
+    #features {
+      padding-top: calc(1rem + 2rem + 1px);
+    }
+    /* Moment text on features page */
+    .moment-container {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .moment-label {
+      font-size: 1.25rem;
+      color: var(--white);
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+    .moment-line {
+      font-size: 3rem;
+      color: var(--white);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    /* Color variables */
+    :root {
+      --red: #e63946;
+      --dark-red: #8B0000;
+      --white: #fff;
+      --cream: #f5f1e8;
+      --r1: #ff6666;
+      --r2: #ff5e5e;
+      --r3: #ff5757;
+      --r4: #ff4f4f;
+      --r5: #ff4747;
+      --r6: #ff3f3f;
+      --r7: #ff3737;
+      --r8: #ff2f2f;
+      --r9: #ff2727;
+      --r10:#ff1f1f;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { width:100%; height:100%; overflow-x:hidden; overflow-y:auto; font-family:'Montserrat',sans-serif; }
+    a { text-decoration:none; color:inherit; cursor:pointer; }
+
+    /* Landing page */
+    #landing {
+      position:relative; z-index:1;
+      width:100vw; height:100vh;
+      background:var(--red);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center;
+    }
+
+    #landing::before {
+      content:''; position:absolute;
+      width:600px; height:600px;
+      background:var(--white); border-radius:50%; opacity:0.2;
+      top:50%; left:50%; transform:translate(-50%,-50%);
+      animation:pulse 8s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%,100% { transform:translate(-50%,-50%) scale(1); }
+      50%      { transform:translate(-50%,-50%) scale(1.1); }
+    }
+    @keyframes float { 0%,100% { transform:rotate(-0.7deg); } 50% { transform:rotate(0.7deg); } }
+    @keyframes drop  { to { transform:translateY(0); opacity:1; } }
+
+    #landing-title {
+      position:relative; z-index:2;
+      font-family:'Poppins',sans-serif;
+      font-size:4rem; color:var(--white);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      animation:float 6s infinite ease-in-out;
+      overflow:hidden;
+    }
+    #landing-title span {
+      display:inline-block; transform:translateY(-200%); opacity:0;
+      animation:drop 0.05s forwards ease;
+    }
+    #landing-text {
+      position:relative; z-index:2;
+      margin-top:0.5rem;
+      font-size:2rem; color:var(--white);
+      /* hidden until fade-in */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .landing-buttons {
+      position: relative; z-index: 2;
+      display: flex; gap: 2rem; margin-top: 2rem;
+    }
+    .landing-buttons a {
+      padding: 1.25rem 2.5rem;    /* larger tap area */
+      font-size: 1.25rem;         /* increase text size */
+      border: 2px solid var(--white);
+      border-radius: 50px;
+      font-weight: 700;
+      color: var(--white);
+      /* hidden until fade-in */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease,
+                  transform 0.3s, box-shadow 0.3s,
+                  background 0.3s, color 0.3s;
+    }
+    .landing-buttons a:hover {
+      transform: translateY(-3px) scale(1.1) !important;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3) !important;
+      background: var(--white) !important;
+      color: var(--red) !important;
+    }
+
+    /* Cover swipe halves */
+    .cover {
+      position:fixed; top:0; width:50%; height:100%;
+      background:var(--cream); z-index:3;
+      transition:transform .6s ease-in-out;
+    }
+    #cover-left  { left:0;  transform:translateX(-100%); }
+    #cover-right { right:0; transform:translateX(100%); }
+    .cover.active { transform:translateX(0); }
+
+    /* Features section */
+    #features {
+      position:absolute; top:0; left:0; z-index:2;
+      width:100vw; height:100vh;
+      display:none;
+      background: linear-gradient(to bottom,
+        var(--r1) 0%,var(--r1)10%,var(--r2)10%,var(--r2)20%,
+        var(--r3)20%,var(--r3)30%,var(--r4)30%,var(--r4)40%,
+        var(--r5)40%,var(--r5)50%,var(--r6)50%,var(--r6)60%,
+        var(--r7)60%,var(--r7)70%,var(--r8)70%,var(--r8)80%,
+        var(--r9)80%,var(--r9)90%,var(--r10)90%,var(--r10)100%
+      );
+      transform:translateY(100vh);
+      transition:transform .6s ease-in-out;
+    }
+    #features.show {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transform:translateY(0);
+    }
+
+    .feature-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem; /* more space between blocks */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .3s ease, transform .3s ease;
+      z-index: 4;
+    }
+    .feature-content.show {
+      opacity:1; transform:translateY(0);
+    }
+    .feature-content h2 {
+      margin:0; font-size:2.5rem;
+      color:var(--white); font-family:'Poppins',sans-serif;
+      overflow:hidden;
+    }
+    .feature-content h2 span {
+      display:inline-block; transform:translateY(-200%); opacity:0;
+      animation:drop 0.05s forwards ease;
+    }
+    .moment-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .feature-btn {
+      padding: 1rem 2rem;    /* larger buttons */
+      font-size: 1.25rem;    /* larger text */
+      border: 2px solid var(--white);
+      border-radius: 50px;
+      font-weight: 700;
+      color: var(--white);
+      background: transparent;
+      transition: transform .3s ease, box-shadow .3s ease, background .3s, color .3s;
+      opacity: 0;
+    }
+    .feature-content.show .feature-btn {
+      opacity: 1;
+    }
+    .feature-btn:hover {
+      transform: translateY(-3px) scale(1.1) !important;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3) !important;
+      background: var(--white) !important;
+      color: var(--red) !important;
+    }
+
+    a.button, .button {
+      display: inline-block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+    a.button:hover, .button:hover {
+      transform: translateY(-4px) scale(1.07);
+      box-shadow: 0 7px 14px rgba(0,0,0,0.3);
+      background: var(--white);
+      color: var(--red);
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="file:///Users/adityagautham/Downloads/Condensed%20Resume%20-%20Aditya%20Gautham.docx.pdf" target="_blank">Resume</a>
+  </nav>
+
+  <!-- Landing -->
+  <div id="landing">
+    <h1 id="landing-title" data-text="Aditya Gautham"></h1>
+    <p id="landing-text">Creative · Inquisitive · Energetic</p>
+    <div class="landing-buttons">
+      <a id="explore">Explore</a>
+      <a href="file:///Users/adityagautham/Downloads/Condensed%20Resume%20-%20Aditya%20Gautham.docx.pdf" target="_blank">Resume</a>
+    </div>
+  </div>
+
+  <!-- Covers -->
+  <div id="cover-left" class="cover"></div>
+  <div id="cover-right" class="cover"></div>
+
+  <!-- Features -->
+  <div id="features">
+    <div class="feature-content">
+      <p class="moment-label">At the moment I’m:</p>
+      <div class="moment-block">
+        <h1 class="moment-line">Studying at Lynbrook High School</h1>
+        <a class="feature-btn" href="about.html">Learn More About Me</a>
+      </div>
+      <div class="moment-block">
+        <h1 class="moment-line">Building Cool Projects</h1>
+        <a class="feature-btn" href="projects.html">Check Them Out</a>
+      </div>
+      <div class="moment-block">
+        <h1 class="moment-line">Winning National Competitions</h1>
+        <a class="feature-btn" href="file:///Users/adityagautham/Downloads/Condensed%20Resume%20-%20Aditya%20Gautham.docx.pdf" target="_blank">View My Resume</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const nav = document.querySelector('.top-nav');
+      const lt = document.getElementById('landing-title');
+
+      function runLandingAnimations() {
+        // Reset state
+        nav.style.top = '-100px';
+        // lt.innerHTML = lt.dataset.text; // restore text (removed)
+        document.getElementById('landing-text').style.cssText = 'opacity:0;transform:translateY(20px)';
+        document.querySelectorAll('.landing-buttons a').forEach(btn => btn.style.cssText = 'opacity:0;transform:translateY(20px)');
+        // Slide nav in
+        requestAnimationFrame(() => nav.style.top = '0');
+        // Run cinematic drop
+        setTimeout(() => {
+          const ltText = lt.dataset.text.split(''); lt.innerHTML = '';
+          ltText.forEach((c, i) => {
+            const span = document.createElement('span');
+            span.innerHTML = c === ' ' ? '&nbsp;' : c;
+            span.style.transform = 'translateY(-200%)'; span.style.opacity = '0';
+            span.style.animation = `drop .05s forwards ease ${i * 0.05}s`;
+            lt.appendChild(span);
+          });
+          const totalTitleTime = ltText.length * 50 + 300;
+          setTimeout(() => {
+            document.getElementById('landing-text').style.cssText = 'opacity:1;transform:translateY(0)';
+            document.querySelectorAll('.landing-buttons a').forEach((btn, idx) => {
+              setTimeout(() => btn.style.cssText = 'opacity:1;transform:translateY(0)', (idx + 1) * 300);
+            });
+          }, totalTitleTime);
+        }, 600);
+      }
+
+      // Run on initial load, reload, and navigation back
+      window.addEventListener('pageshow', runLandingAnimations);
+
+      const explore = document.getElementById('explore');
+      const landing = document.getElementById('landing');
+      const coverL = document.getElementById('cover-left');
+      const coverR = document.getElementById('cover-right');
+      const features = document.getElementById('features');
+
+      explore.addEventListener('click', e => {
+        e.preventDefault();
+        features.style.display = 'flex';
+        requestAnimationFrame(() => features.classList.add('show'));
+        coverL.classList.add('active'); coverR.classList.add('active');
+        setTimeout(() => {
+          landing.style.display = 'none';
+          document.querySelector('.feature-content').classList.add('show');
+          coverL.classList.remove('active'); coverR.classList.remove('active');
+        }, 600);
+      });
+    })();
+  </script>
+</body>
+</html>

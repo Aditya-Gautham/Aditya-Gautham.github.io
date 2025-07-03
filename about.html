@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me | Aditya Gautham</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌹%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .crown {
+      position: relative;
+      display: inline-block;
+    }
+    .crown::after {
+      content: '👑';
+      position: absolute;
+      font-size: 1rem;
+      top: -0.5rem;
+      right: -0.6rem;
+    }
+    :root {
+      --red: #e63946;
+      --dark-red: #8B0000;
+      --white: #fff;
+      --cream: #f5f1e8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: #333;
+      overflow: hidden; /* disable scrolling */
+    }
+
+    /* Sticky top nav */
+    .top-nav {
+      position: fixed;
+      top: 0px;
+      left: 0;
+      width: 100%;
+      background: var(--dark-red); /* extra dark red */
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      z-index: 10;
+      transition: top 0.6s ease;
+      border-bottom: 1px solid var(--white);
+    }
+    .top-nav a {
+      position: relative; /* ensure link is above indicator */
+      z-index: 2;
+      padding: 0.75rem 2rem;        /* longer sides */
+      border-radius: 50px;         /* full pill shape */
+      color: var(--cream);
+      font-weight: bold;
+      text-transform: capitalize;
+      text-decoration: none;
+      transition: background .3s, color .3s, transform .2s ease, box-shadow .3s ease;
+    }
+    .top-nav a:hover {
+      background: var(--cream);
+      color: var(--red);
+      box-shadow:
+        0 0 8px rgba(255,255,255,0.7),   /* outer glow */
+        0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    /* Slide-in wrapper */
+    #slide-container {
+      margin-top: 5rem; /* approximate nav height + spacing */
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .about-container {
+      display: flex;
+      flex-wrap: nowrap;
+      height: calc(100vh - (1rem + 2rem + 1px));
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 2rem; /* small spacing below nav */
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+      perspective: 1000px;
+    }
+    .text-block {
+      flex: 0 0 60%;
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
+    .text-block h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .text-block p {
+      margin-bottom: 1.5rem;
+    }
+    .rose-block {
+      flex: 0 0 40%;
+      display: flex;
+      justify-content: center;
+      align-self: flex-start;
+      margin-top: 6rem;
+    }
+    .rose-block img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transition: transform 0.15s ease-out;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+    .rose-block img:hover {
+      transform: perspective(600px) rotateY(15deg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <nav class="top-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="file:///Users/adityagautham/Downloads/Condensed%20Resume%20-%20Aditya%20Gautham.docx.pdf"
+       target="_blank">Resume</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div id="slide-container">
+    <div class="about-container">
+      <div class="text-block">
+  <h1>About Me</h1>
+  <p>Hi, I’m Aditya Gautham, a rising sophomore at Lynbrook High School with a passion for computer science, engineering, and robotics.</p>
+  <p>I thrive on learning new concepts—from web development to deep learning algorithms—and then sharing that knowledge by teaching peers. I love seeking out new challenges to expose myself to diverse ideas, hone my skills, and inspire others to explore the world of technology alongside me.</p>
+  <p>In my free time, you’ll find me playing chess, listening to R&amp;B, or grinding Clash Royale</span>.</p>
+</div>
+      <div class="rose-block">
+        <img src="rose.png" alt="Pixel-art rose" />
+      </div>
+    </div>
+  </div>
+</script>
+  <script>
+    window.addEventListener('pageshow', () => {
+      const slide = document.getElementById('slide-container');
+      requestAnimationFrame(() => {
+        slide.style.transform = 'translateX(0)';
+      });
+    });
+  </script>
+  <script>
+    const roseContainer = document.querySelector('.rose-block');
+    const roseImg = document.querySelector('.rose-block img');
+    roseContainer.addEventListener('mousemove', e => {
+      const rect = roseContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const dx = (x - cx) / cx;
+      const dy = (y - cy) / cy;
+      const rotateY = dx * 20;
+      const rotateX = -dy * 20;
+      // Apply tilt
+      roseImg.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+      // Compute shadow offset opposite cursor
+      const shadowX = -dx * 20; // invert direction
+      const shadowY = -dy * 20;
+      // Apply dynamic box-shadow
+      roseImg.style.boxShadow = `${shadowX}px ${shadowY}px 20px rgba(0,0,0,0.4)`;
+    });
+    roseContainer.addEventListener('mouseleave', () => {
+      roseImg.style.transform = 'rotateY(0) rotateX(0)';
+      roseImg.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+    });
+  </script>
+</body>
+</html>
