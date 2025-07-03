@@ -7,6 +7,14 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌹%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    body {
+      padding: 0 1rem;
+    }
+    .feature-content, .about-container, .projects-list {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
     /* Sticky top nav */
     .top-nav {
       position: fixed;
@@ -87,12 +95,14 @@
 
     /* Landing page */
     #landing {
-      position:relative; z-index:1;
-      width:100vw; height:100vh;
-      background:var(--red);
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      text-align:center;
+      position: relative; z-index:1;
+      left: -1rem;
+      width: calc(100% + 2rem);
+      height: 100vh;
+      background: var(--red);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
     }
 
     #landing::before {
@@ -112,7 +122,8 @@
     #landing-title {
       position:relative; z-index:2;
       font-family:'Poppins',sans-serif;
-      font-size:4rem; color:var(--white);
+      font-size: clamp(2rem, 10vw, 5rem);
+      color:var(--white);
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
       animation:float 6s infinite ease-in-out;
       overflow:hidden;
@@ -124,7 +135,8 @@
     #landing-text {
       position:relative; z-index:2;
       margin-top:0.5rem;
-      font-size:2rem; color:var(--white);
+      font-size: clamp(1rem, 3vw, 2rem);
+      color:var(--white);
       /* hidden until fade-in */
       opacity: 0;
       transform: translateY(20px);
@@ -135,8 +147,8 @@
       display: flex; gap: 2rem; margin-top: 2rem;
     }
     .landing-buttons a {
-      padding: 1.25rem 2.5rem;    /* larger tap area */
-      font-size: 1.25rem;         /* increase text size */
+      padding: clamp(0.75rem, 1.5vw, 1.5rem) clamp(1.5rem, 3vw, 2.5rem);
+      font-size: clamp(1rem, 2vw, 1.25rem);
       border: 2px solid var(--white);
       border-radius: 50px;
       font-weight: 700;
@@ -247,6 +259,34 @@
       color: var(--red);
     }
 
+    /* Responsive features layout */
+    @media (max-width: 768px) {
+      .feature-content {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .moment-block {
+        width: 90%;
+      }
+    }
+
+    /* Project cards */
+    .project-card {
+      flex-direction: row;
+    }
+    @media (max-width: 768px) {
+      .project-card {
+        flex-direction: column;
+        width: 100%;
+      }
+      .project-card img {
+        width: 100%;
+        height: auto;
+      }
+      .proj-text {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
